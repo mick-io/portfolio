@@ -1,8 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production', // Switch to 'production' mode for minification
   entry: './src/main.ts',
   output: {
     filename: 'bundle.js',
@@ -21,6 +22,10 @@ module.exports = {
     ],
   },
   plugins: [new HtmlWebpackPlugin({ template: 'index.html' })],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
   devServer: {
     static: {
       directory: path.resolve(__dirname, 'dist'),
